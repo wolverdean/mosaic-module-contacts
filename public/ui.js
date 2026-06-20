@@ -251,9 +251,14 @@
       shell = s
     },
 
-    onActivate(el) {
+    onActivate(el, context) {
       container = el
-      loadContacts()
+      loadContacts().then(() => {
+        if (context?.itemId) {
+          editingId = Number(context.itemId)
+          render()
+        }
+      })
     },
 
     onDeactivate() {
